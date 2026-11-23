@@ -1,0 +1,20 @@
+[package]
+name = "nvdf-cli"
+description = "Command-line tool for VDF (Vehicle Description Format) documents"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "nvdf"
+path = "src/main.rs"
+
+[dependencies]
+nvdf.workspace = true
+
+[lints]
+workspace = true

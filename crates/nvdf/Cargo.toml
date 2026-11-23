@@ -1,0 +1,16 @@
+[package]
+name = "nvdf"
+description = "VDF (Vehicle Description Format): parse, resolve and validate vehicle and robot descriptions"
+keywords = ["robotics", "uav", "simulation", "urdf", "description"]
+categories = ["science::robotics", "simulation", "parser-implementations"]
+readme = "../../README.md"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true

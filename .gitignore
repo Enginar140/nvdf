@@ -1,0 +1,14 @@
+/target/
+**/*.rs.bk
+*.pdb
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Python bindings (later)
+__pycache__/
+*.pyc
+.venv/
