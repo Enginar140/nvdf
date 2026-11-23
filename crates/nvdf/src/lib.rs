@@ -7,6 +7,8 @@
 //!
 //! The format is at the design stage; see `docs/tasarim/00_vdf_tasarimi.md`.
 
+pub mod units;
+
 /// The VDF format version implemented by this crate (`nvdf:` key in documents).
 pub const FORMAT_VERSION: &str = "0.1";
 
