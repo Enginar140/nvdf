@@ -166,12 +166,30 @@ Lisans: MIT + Apache-2.0.
 - Dönüştürücüler: içe URDF, içe JSBSim, dışa URDF.
 - Örnek modeller: **Rascal 110** (JSBSim'den dönüştürülmüş), **quad-x-450**.
 
-## 10. Kararlar (kullanıcı, 23.11.2026)
+## 10. Kolay kullanım: kademeli ayrıntı (öneri, 23.11.2026)
+Kullanıcı ne kadar bilgi verirse o kadar gerçekçi model alır. Hiçbir şey vermediği yerde makul bir varsayılan kullanılır ve **bu açıkça raporlanır**.
+
+| Seviye | Kullanıcı ne yazar | Örnek |
+|---|---|---|
+| **0. İçe aktarma** | Hiçbir şey; mevcut model | `nvdf convert iris.sdf`, JSBSim, URDF |
+| **1. Şablon** | 5–10 parametre | `template: quad-x` + kütle, kol, parça adları |
+| **2. Katalog** | Parça adı | `prop: catalog://props/apc-10x4.7` |
+| **3. Parametrik** | Birkaç sayı | motor `kv: 700`, batarya `cells: 4, capacity: 5000 mAh` → eğriler varsayılan |
+| **4. Tam** | Tablolar, Allan parametreleri | CT/CQ(J), OCV(SoC), R0 + RC, gürültü yoğunlukları |
+
+**Kurallar:**
+- **Sadakat seviyesi modelin parçasıdır.** Motor `simple` (maks. devir + gecikme, Gazebo benzeri) ya da `electric` (Kv, R, I0, batarya bağlantısı) olabilir; sensör `grade: consumer | industrial | tactical` ya da tam parametreler.
+- **Her türetilmiş değerin kaynağı izlenir:** `user` / `template` / `catalog` / `estimated`. `nvdf inspect` bunları listeler; `estimated` değerler uyarıyla gösterilir. "Sessiz tahmin yok" ilkesinin kullanıcı dostu hali budur.
+- **Şablonlar bir VDF belgesinin parametreli halidir** (`params` + `include`). Ayrı bir dil değildir; kullanıcı istediğinde şablonu açıp her ayrıntıyı ezebilir.
+- **Tahmin yöntemleri belgelenir ve test edilir.** Örneğin geometriden kanat katsayıları: şerit teorisi / VLM; çap ve hatveden pervane eğrisi: genel ampirik form. Doğruluk sınırları belirtilir.
+- `nvdf new quad-x` gibi bir iskelet komutu, sonra NSIM görüntüleyicisinde bir sihirbaz.
+
+## 11. Kararlar (kullanıcı, 23.11.2026)
 1. **Saklama çerçevesi: FLU gövde / ENU dünya** (ROS REP-103). Havacılık modülleri kendi eksenlerini (`frd`, `stability`) açıkça belirtir. NED/FRD dönüşümü tüketici tarafında yapılır (örn. NSIM'in ArduPilot köprüsü).
 2. **Açı birimi: radyan.** Birimsiz her sayı SI'dır. Derece için `"30 deg"` yazılır.
 3. **Parça kataloğu: ayrı repo `nvdf-catalog`.** `catalog://` adresleri buraya çözülür, katalog format sürümlerinden bağımsız güncellenir.
 4. **İfade dili: `${param}` + dört işlem + parantez**, bir de küçük bir güvenli fonksiyon kümesi (`sqrt`, `sin`, `cos`, `tan`, `atan2`, `min`, `max`, `abs`, `pi`). Döngü ve koşul yok.
 
-## 11. Açık konular
+## 12. Açık konular
 - Lisans: MIT + Apache-2.0 (öneri).
 - `nvdf-catalog` için katkı kuralları: veri kaynağı, ölçüm koşulları, lisans (üretici verisi telifli olabilir).
